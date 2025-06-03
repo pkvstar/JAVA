@@ -1,0 +1,20 @@
+🏮 there are 4 types of pattern :
+1-> constant window
+    example - find maximum sum (should be in consecutive manner)
+    arr = [-1,2,3,3,4,5,-1,4] and k=4 
+    code in image
+
+2-> longest subarray/substring where <condition>
+    example - longest subarray with sum <= k & return max length
+    arr = [2,5,1,7,10] and k=14
+    a) brute force - generate all subarrays
+    b) better      - using two_pointer/sliding window (code image2 and image3)
+                     TC -> O( N + N )
+    c) optimal     - only keeping max length and not shrinking less than
+                     maxlen (it will answer for maxlen but not work if Ques
+                     asks to print that subarray).(code image4)
+                     TC -> O( N )
+
+3-> No. of subarrays where <condition> (will be solved usind pattern 2)
+
+4-> shortest/minimum length <condition> (rare case scenerio of getting Ques)
