@@ -1,3 +1,4 @@
+import java.util.HashMap;
 public class twelve{
     //? Minimum Window Substring
     public static void main(String[] args) {
@@ -6,42 +7,48 @@ public class twelve{
         System.out.println(minWindow(s, t)); // Output: "BANC"
     }
     //? BRUTE FORCE -> generate all substrings of s and check if they contain t
+    //* reference code(image and image2) 
 
     //? OPTIMAL -> Sliding Window
+    //* Approach : we keep count and if that count == t.length() then we update
+    //* minlen and then we shrink window and during shrinking if (count<t.length()) 
+    //* then we extend the window till count == t.length() and we increase count only when
+    //* frequency of character in map > 0 and we reduce the frequency in that and during 
+    //* shrinking if frequency of character in map become greater than 0 then we reduce the 
+    //* count. 
     public static String minWindow(String s, String t) {
-        if (s.length() < t.length()) return "";
-        
-        int[] charCount = new int[128]; // ASCII character set
-        for (char c : t.toCharArray()) {
-            charCount[c]++;
+        int[] hashArr = new int[128]; // Use 128 since characters can be lowercase and uppercase
+        for (int i = 0; i < t.length(); i++) {
+            hashArr[t.charAt(i)]++;
         }
-        
-        int left = 0, right = 0, required = t.length(), minLength = Integer.MAX_VALUE;
-        int start = 0;
-        
-        while (right < s.length()) {
-            char rightChar = s.charAt(right);
-            if (charCount[rightChar] > 0) {
-                required--;
+        int l = 0, r = 0;
+        int ct = 0; // Count of matching characters
+        int minLen = Integer.MAX_VALUE; // Initialize minLen to a large value
+        int sIndex = -1;
+        while (r < s.length()) {
+            // Expand window by moving r
+            char rightChar = s.charAt(r);
+            if (hashArr[rightChar] > 0) {
+                ct++;
             }
-            charCount[rightChar]--;
-            right++;
-            
-            while (required == 0) {
-                if (right - left < minLength) {
-                    minLength = right - left;
-                    start = left;
+            hashArr[rightChar]--; // Decrease the count for the current character
+            // When we have a valid window, try to minimize it
+            while (ct == t.length()) {
+                if (r - l + 1 < minLen) {
+                    minLen = r - l + 1;
+                    sIndex = l;
                 }
-                
-                char leftChar = s.charAt(left);
-                charCount[leftChar]++;
-                if (charCount[leftChar] > 0) {
-                    required++;
+                // Contract the window by moving l
+                char leftChar = s.charAt(l);
+                hashArr[leftChar]++; // Increase the count back when moving left
+                if (hashArr[leftChar] > 0) {
+                    ct--; // Decrease the match count if a necessary character is lost
                 }
-                left++;
+                l++;
             }
+            r++;
         }
-        
-        return minLength == Integer.MAX_VALUE ? "" : s.substring(start, start + minLength);
+        // Return the smallest window or an empty string if no window was found
+        return sIndex == -1 ? "" : s.substring(sIndex, sIndex + minLen);
     }
 }
