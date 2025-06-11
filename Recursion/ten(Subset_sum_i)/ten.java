@@ -16,7 +16,7 @@ public class ten{
     //* Pick and not pick approach and add that sum in list when idx==arr.length 
     //* after that we will sort the list
 
-    public static void subset_sum_i(int[] arr,ArrayList ans,int idx,int sum){
+    public static void subset_sum_i(int[] arr,ArrayList<Integer> ans,int idx,int sum){
         if(idx==arr.length){
             ans.add(sum);
             return;
