@@ -7,6 +7,8 @@ public class thirteen{
     //* Swapping approach means run loop from 0 -> n
     //* and swap with itself and i+1 to n and when
     //* index == arr.length-1 OR li.size == arr.length then add li in ans
+
+    //? TC -> O(n! * n)
     public static void main(String[] args){
         int[] arr = {1,2,3};
         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
