@@ -5,7 +5,7 @@ public class one{
         System.out.print(binToDecimal(111));
     }
 
-    //? 1. convert Decimal to Binary
+    //? 1. convert Decimal to Binary (TC-> O(logn) SC-> O(logn))
     //* Approach is simple as we divide with 2 and whatever be the remainder
     //* we get , we store it to any Data Structure and after that we reverse that ans.
     public static String decToBinary(int n){
